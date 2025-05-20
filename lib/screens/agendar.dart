@@ -59,13 +59,13 @@ class _AgendarScreenState extends State<AgendarScreen> {
       builder: (context, child) => Theme(
         data: Theme.of(context).copyWith(
           colorScheme: ColorScheme.light(
-            primary: Colors.teal, // cor do header
-            onPrimary: Colors.white, // cor do texto do header
-            onSurface: Colors.black, // cor dos textos do body
+            primary: Colors.teal, 
+            onPrimary: Colors.white, 
+            onSurface: Colors.black,
           ),
           textButtonTheme: TextButtonThemeData(
             style: TextButton.styleFrom(
-              foregroundColor: Colors.teal, // cor dos botões
+              foregroundColor: Colors.teal,
             ),
           ),
         ),
