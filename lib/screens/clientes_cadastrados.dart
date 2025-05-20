@@ -71,23 +71,32 @@ class _VisualizarClientesScreenState extends State<VisualizarClientesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pacientes'),
+        title: const Text('Pacientes',
+          style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
         centerTitle: true,
         elevation: 2,
         backgroundColor: theme.primaryColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => _abrirCadastro(),
         backgroundColor: theme.primaryColor,
         elevation: 6,
-        child: const Icon(Icons.add, size: 28),
+        child: const Icon(Icons.add, size: 28, color: Colors.white,),
       ),
       body: _carregando
           ? const Center(child: CircularProgressIndicator())
           : clientesProvider.clientes.isEmpty
               ? Center(
                   child: Text(
-                    'Nenhum cliente cadastrado.',
+                    'Nenhum cliente cadastrado',
                     style: TextStyle(fontSize: 18, color: Colors.grey.shade600),
                   ),
                 )
@@ -127,7 +136,7 @@ class _VisualizarClientesScreenState extends State<VisualizarClientesScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                // Botão editar
+                                
                                 InkWell(
                                   borderRadius: BorderRadius.circular(30),
                                   onTap: () => _abrirCadastro(cliente: cliente),
@@ -141,7 +150,7 @@ class _VisualizarClientesScreenState extends State<VisualizarClientesScreen> {
                                   ),
                                 ),
                                 const SizedBox(width: 12),
-                                // Botão excluir
+                                
                                 InkWell(
                                   borderRadius: BorderRadius.circular(30),
                                   onTap: () => _confirmarExclusao(cliente.uidCliente),

@@ -114,10 +114,19 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEditing ? 'Editar Paciente' : 'Cadastrar Paciente'),
+        title: Text(isEditing ? 'Editar Paciente' : 'Cadastrar Paciente',
+          style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: theme.primaryColor,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       backgroundColor: Colors.white,
       body: Padding(
@@ -164,7 +173,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
                   ),
                   child: Text(
                     isEditing ? 'Salvar' : 'Cadastrar',
-                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ),

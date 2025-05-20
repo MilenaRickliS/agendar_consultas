@@ -145,8 +145,17 @@ class _AgendarScreenState extends State<AgendarScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agendar Consulta'),
+        title: const Text('Agendar Consulta',
+          style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+        ),
         backgroundColor: Colors.teal,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Center(
         child: Card(
@@ -170,6 +179,16 @@ class _AgendarScreenState extends State<AgendarScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.grey[100],
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Colors.teal, 
+                            width: 2,
+                          ),
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.teal, 
+                        ),
                       ),
                       items: clientes
                           .map((cliente) => DropdownMenuItem(
@@ -191,6 +210,16 @@ class _AgendarScreenState extends State<AgendarScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.grey[100],
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Colors.teal, 
+                            width: 2,
+                          ),
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.teal, 
+                        ),
                       ),
                       items: _opcoesEspecialidade
                           .map((opcao) => DropdownMenuItem(
@@ -212,6 +241,16 @@ class _AgendarScreenState extends State<AgendarScreen> {
                         ),
                         filled: true,
                         fillColor: Colors.grey[100],
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            color: Colors.teal, 
+                            width: 2,
+                          ),
+                        ),
+                        floatingLabelStyle: TextStyle(
+                          color: Colors.teal, 
+                        ),
                       ),
                       items: _opcoesMedico
                           .map((opcao) => DropdownMenuItem(
@@ -235,10 +274,10 @@ class _AgendarScreenState extends State<AgendarScreen> {
                         shadowColor: Colors.tealAccent,
                       ),
                       onPressed: _selecionarDataHora,
-                      icon: const Icon(Icons.calendar_today),
+                      icon: const Icon(Icons.calendar_today, color: Colors.white),
                       label: const Text(
                         'Selecionar Data e Hora',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                     if (_dataHoraSelecionada != null)
@@ -260,7 +299,7 @@ class _AgendarScreenState extends State<AgendarScreen> {
                     const SizedBox(height: 32),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.teal.shade700,
+                        backgroundColor: const Color.fromARGB(255, 30, 51, 49),
                         minimumSize: const Size.fromHeight(50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
@@ -271,7 +310,7 @@ class _AgendarScreenState extends State<AgendarScreen> {
                       onPressed: _salvarConsulta,
                       child: const Text(
                         'Agendar Consulta',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                     ),
                   ],

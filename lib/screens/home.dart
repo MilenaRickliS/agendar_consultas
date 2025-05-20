@@ -26,7 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Consultas Agendadas'),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            Icon(Icons.add_alarm, color: Colors.white),
+            SizedBox(width: 8),
+            Text(
+              'Consultas Agendadas',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
         backgroundColor: Colors.teal,
         elevation: 4,
@@ -57,11 +70,26 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const Divider(thickness: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: const [
+                Icon(Icons.swipe_left, color: Colors.grey),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Dica: arraste para o lado para cancelar uma consulta.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: consultasProvider.consultas.isEmpty
                 ? const Center(
                     child: Text(
-                      'Nenhuma consulta agendada.',
+                      'Nenhuma consulta agendada',
                       style: TextStyle(fontSize: 18, color: Colors.grey),
                     ),
                   )
