@@ -37,7 +37,7 @@ class _VisualizarClientesScreenState extends State<VisualizarClientesScreen> {
         builder: (_) => CadastrarScreen(cliente: cliente),
       ),
     );
-    await _carregarClientes(); // Recarrega após voltar
+    await _carregarClientes(); 
   }
 
   Future<void> _confirmarExclusao(String uidCliente) async {

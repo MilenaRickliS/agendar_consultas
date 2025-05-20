@@ -29,7 +29,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
       _telefoneController.text = widget.cliente!.telefone;
       _dataNascimentoController.text = widget.cliente!.dataNascimento;
     } else {
-      _uidCliente = const Uuid().v4(); // novo UID para cadastro
+      _uidCliente = const Uuid().v4(); 
     }
   }
 
@@ -55,7 +55,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
         );
       }
 
-      Navigator.pop(context); // Volta para a tela anterior
+      Navigator.pop(context); 
     }
   }
 
