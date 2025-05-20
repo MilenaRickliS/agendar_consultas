@@ -1,11 +1,11 @@
 class ClienteModel {
-  String uid;
+  String uidCliente;
   String nome;
   String dataNascimento;
   String telefone;
 
   ClienteModel({
-    required this.uid,
+    required this.uidCliente,
     required this.nome,
     required this.dataNascimento,
     required this.telefone,
@@ -13,7 +13,7 @@ class ClienteModel {
 
   factory ClienteModel.fromMap(Map<String, dynamic> map) {
     return ClienteModel(
-      uid: map['uid'],
+      uidCliente: map['uidCliente'],
       nome: map['nome'],
       dataNascimento: map['dataNascimento'],
       telefone: map['telefone'],
@@ -22,7 +22,7 @@ class ClienteModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
+      'uidCliente': uidCliente,
       'nome': nome,
       'dataNascimento': dataNascimento,
       'telefone': telefone,

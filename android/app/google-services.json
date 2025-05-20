@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "835629827698",
+    "project_id": "persistencia-ec152",
+    "storage_bucket": "persistencia-ec152.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835629827698:android:edcc3a1fd580aca3e024eb",
+        "android_client_info": {
+          "package_name": "com.example.agendar_consultas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnZwNyWBvSZNzIXly_TtYO14xDXmok3G0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:agendar_consultas/screens/clientes_cadastrados.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -7,8 +8,6 @@ import 'package:agendar_consultas/provider/consultas_provider.dart';
 import 'screens/home.dart';
 import 'screens/agendar.dart';
 import 'screens/cadastrar.dart';
-import 'screens/detalhes.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,15 +35,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Agendar Consultas',
       theme: ThemeData(
-        primarySwatch: const Color.fromARGB(255, 0, 112, 216), 
+        primarySwatch: Colors.blue, 
         visualDensity: VisualDensity.adaptivePlatformDensity, 
       ),
       home: HomeScreen(),
       debugShowCheckedModeBanner: false, 
-      routes: {         
+      routes: {       
         '/agendar': (context) => const AgendarScreen(),
         '/cadastrar': (context) => const CadastrarScreen(),
-        '/detalhes': (context) => const DetalhesScreen(),
+        '/pacientes': (context) => const VisualizarClientesScreen()
       },
     );
   }

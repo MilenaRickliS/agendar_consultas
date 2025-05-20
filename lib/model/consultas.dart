@@ -1,41 +1,35 @@
-class OrderModel {
+class ConsultaModel {
   String uidConsulta;
   String uidCliente;
-  DateTime data;
-  DateTime hora;
-  List<Map<String, dynamic>> especialidade;
-  List<Map<String, dynamic>> medico;
+  DateTime dataHora;
+  String especialidade;
+  String medico;
 
-  OrderModel({
+  ConsultaModel({
     required this.uidConsulta,
     required this.uidCliente,
-    required this.data,
-    required this.hora,
+    required this.dataHora,
     required this.especialidade,
-    required this.medico
+    required this.medico,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'uidPedido': uidConsulta,
+      'uidConsulta': uidConsulta,
       'uidCliente': uidCliente,
-      'data': data,
-      'hora': hora,
+      'dataHora': dataHora.toIso8601String(),
       'especialidade': especialidade,
       'medico': medico,
     };
   }
 
-  factory OrderModel.fromMap(Map<String, dynamic> map) {
-    return OrderModel(
+  factory ConsultaModel.fromMap(Map<String, dynamic> map) {
+    return ConsultaModel(
       uidConsulta: map['uidConsulta'],
       uidCliente: map['uidCliente'],
-      data: map['data'],
-      hora: map['hora'],
-      especialidade: List<Map<String, dynamic>>.from(map['especialidade']),
-      medico: List<Map<String, dynamic>>.from(map['medico']),
+      dataHora: DateTime.parse(map['dataHora']),
+      especialidade: map['especialidade'],
+      medico: map['medico'],
     );
   }
 }
-
-// Clínica Geral, Pediatria, Ginecologia e Obstetrícia, Cardiologia, Ortopedia, Neurologia, Psiquiatria e Dermatologia
