@@ -45,7 +45,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
   String? _validarTelefone(String? value) {
     if (value == null || value.isEmpty) return 'Informe o telefone';
     final telefoneNumerico = toNumericString(value);
-    if (telefoneNumerico.length != 11) return 'Telefone é numérico e deve conter 11 dígitos';
+    if (telefoneNumerico.length != 11) return 'Telefone deve conter 11 dígitos numéricos';
     return null;
   }
 
@@ -92,39 +92,81 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
     }
   }
 
+  InputDecoration _inputDecoration({required String label, IconData? icon}) {
+    return InputDecoration(
+      labelText: label,
+      prefixIcon: icon != null ? Icon(icon) : null,
+      filled: true,
+      fillColor: Colors.grey.shade100,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      errorStyle: const TextStyle(color: Colors.redAccent),
+      contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isEditing = widget.cliente != null;
+    final theme = Theme.of(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text(widget.cliente == null ? 'Cadastrar Paciente' : 'Editar Paciente')),
+      appBar: AppBar(
+        title: Text(isEditing ? 'Editar Paciente' : 'Cadastrar Paciente'),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: theme.primaryColor,
+      ),
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
         child: Form(
           key: _formKey,
           child: ListView(
+            physics: const BouncingScrollPhysics(),
             children: [
               TextFormField(
                 controller: _nomeController,
-                decoration: const InputDecoration(labelText: 'Nome'),
+                decoration: _inputDecoration(label: 'Nome', icon: Icons.person),
                 validator: _validarNome,
+                textInputAction: TextInputAction.next,
               ),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _telefoneController,
-                decoration: const InputDecoration(labelText: 'Telefone'),
+                decoration: _inputDecoration(label: 'Telefone', icon: Icons.phone),
                 keyboardType: TextInputType.phone,
                 inputFormatters: [MaskedInputFormatter('(##) #####-####')],
                 validator: _validarTelefone,
+                textInputAction: TextInputAction.next,
               ),
+              const SizedBox(height: 20),
               TextFormField(
                 controller: _dataNascimentoController,
-                decoration: const InputDecoration(labelText: 'Data de Nascimento'),
+                decoration: _inputDecoration(label: 'Data de Nascimento', icon: Icons.calendar_today),
                 keyboardType: TextInputType.datetime,
                 inputFormatters: [MaskedInputFormatter('##/##/####')],
                 validator: _validarData,
+                textInputAction: TextInputAction.done,
               ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _salvarCliente,
-                child: Text(widget.cliente == null ? 'Cadastrar' : 'Salvar'),
+              const SizedBox(height: 36),
+              SizedBox(
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: _salvarCliente,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                    backgroundColor: theme.primaryColor,
+                    elevation: 4,
+                    shadowColor: theme.primaryColor.withAlpha(230),
+                  ),
+                  child: Text(
+                    isEditing ? 'Salvar' : 'Cadastrar',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ),
               ),
             ],
           ),

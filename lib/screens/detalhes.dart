@@ -23,24 +23,118 @@ class DetalhesScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Detalhes da Consulta')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      appBar: AppBar(
+        title: const Text('Detalhes da Consulta'),
+        centerTitle: true,
+        backgroundColor: Colors.teal,
+        elevation: 4,
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Card(
-          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 6,
+          shadowColor: Colors.teal.withOpacity(0.4),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 28),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('ID: ${consulta.uidConsulta}', style: const TextStyle(fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                Text('Data: ${consulta.dataHora.day}/${consulta.dataHora.month}/${consulta.dataHora.year}'),
-                Text('Hora: ${consulta.dataHora.hour}:${consulta.dataHora.minute.toString().padLeft(2, '0')}'),
-                const Divider(),
-                Text('Paciente: ${cliente.nome}'),
-                Text('Especialidade: ${consulta.especialidade}'),
-                Text('Médico: ${consulta.medico}'),
+                Text(
+                  'Consulta ID',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  consulta.uidConsulta,
+                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const Divider(height: 32, thickness: 1.5),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Data',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.teal.shade700,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${consulta.dataHora.day.toString().padLeft(2, '0')}/'
+                            '${consulta.dataHora.month.toString().padLeft(2, '0')}/'
+                            '${consulta.dataHora.year}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Hora',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.teal.shade700,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${consulta.dataHora.hour.toString().padLeft(2, '0')}:'
+                            '${consulta.dataHora.minute.toString().padLeft(2, '0')}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const Divider(height: 32, thickness: 1.5),
+                Text(
+                  'Paciente',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(cliente.nome, style: const TextStyle(fontSize: 18)),
+                const SizedBox(height: 20),
+                Text(
+                  'Especialidade',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(consulta.especialidade, style: const TextStyle(fontSize: 18)),
+                const SizedBox(height: 20),
+                Text(
+                  'Médico',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal.shade700,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(consulta.medico, style: const TextStyle(fontSize: 18)),
               ],
             ),
           ),
