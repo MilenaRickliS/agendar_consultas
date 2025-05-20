@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import '../provider/clientes_provider.dart';
 import 'package:agendar_consultas/model/clientes.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_multi_formatter/flutter_multi_formatter.dart';
+import 'package:intl/intl.dart';
 
 class CadastrarScreen extends StatefulWidget {
   final ClienteModel? cliente;
@@ -29,8 +31,39 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
       _telefoneController.text = widget.cliente!.telefone;
       _dataNascimentoController.text = widget.cliente!.dataNascimento;
     } else {
-      _uidCliente = const Uuid().v4(); 
+      _uidCliente = const Uuid().v4();
     }
+  }
+
+  String? _validarNome(String? value) {
+    if (value == null || value.isEmpty) return 'Informe o nome';
+    final nomeValido = RegExp(r"^[A-Za-zÀ-ú\s]+$");
+    if (!nomeValido.hasMatch(value)) return 'Use apenas letras e acentos';
+    return null;
+  }
+
+  String? _validarTelefone(String? value) {
+    if (value == null || value.isEmpty) return 'Informe o telefone';
+    final telefoneNumerico = toNumericString(value);
+    if (telefoneNumerico.length != 11) return 'Telefone é numérico e deve conter 11 dígitos';
+    return null;
+  }
+
+  String? _validarData(String? value) {
+    if (value == null || value.isEmpty) return 'Informe a data de nascimento';
+    final dataRegex = RegExp(r'^\d{2}/\d{2}/\d{4}$');
+    if (!dataRegex.hasMatch(value)) return 'Informe uma data válida';
+
+    try {
+      final data = DateFormat('dd/MM/yyyy').parseStrict(value);
+      if (data.isAfter(DateTime.now())) {
+        return 'Data de nascimento não pode ser futura';
+      }
+    } catch (e) {
+      return 'Data inválida';
+    }
+
+    return null;
   }
 
   void _salvarCliente() async {
@@ -38,7 +71,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
       final cliente = ClienteModel(
         uidCliente: _uidCliente,
         nome: _nomeController.text.trim(),
-        telefone: _telefoneController.text.trim(),
+        telefone: toNumericString(_telefoneController.text.trim()),
         dataNascimento: _dataNascimentoController.text.trim(),
       );
 
@@ -55,7 +88,7 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
         );
       }
 
-      Navigator.pop(context); 
+      Navigator.pop(context);
     }
   }
 
@@ -72,23 +105,21 @@ class _CadastrarScreenState extends State<CadastrarScreen> {
               TextFormField(
                 controller: _nomeController,
                 decoration: const InputDecoration(labelText: 'Nome'),
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Informe o nome' : null,
+                validator: _validarNome,
               ),
               TextFormField(
                 controller: _telefoneController,
                 decoration: const InputDecoration(labelText: 'Telefone'),
                 keyboardType: TextInputType.phone,
-                validator: (value) =>
-                    value == null || value.isEmpty ? 'Informe o telefone' : null,
+                inputFormatters: [MaskedInputFormatter('(##) #####-####')],
+                validator: _validarTelefone,
               ),
               TextFormField(
                 controller: _dataNascimentoController,
                 decoration: const InputDecoration(labelText: 'Data de Nascimento'),
                 keyboardType: TextInputType.datetime,
-                validator: (value) => value == null || value.isEmpty
-                    ? 'Informe a data de nascimento'
-                    : null,
+                inputFormatters: [MaskedInputFormatter('##/##/####')],
+                validator: _validarData,
               ),
               const SizedBox(height: 20),
               ElevatedButton(
