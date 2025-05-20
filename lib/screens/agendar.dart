@@ -79,7 +79,17 @@ class _AgendarScreenState extends State<AgendarScreen> {
   }
 
   Future<void> _salvarConsulta() async {
-    if (_formKey.currentState!.validate() && _dataHoraSelecionada != null) {
+    if (_formKey.currentState!.validate()) {
+      if (_dataHoraSelecionada == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Selecione a data e hora da consulta'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
       final novaConsulta = ConsultaModel(
         uidConsulta: const Uuid().v4(),
         uidCliente: _uidCliente!,
@@ -98,6 +108,7 @@ class _AgendarScreenState extends State<AgendarScreen> {
       Navigator.pop(context);
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

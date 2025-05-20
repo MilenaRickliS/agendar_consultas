@@ -65,28 +65,66 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemCount: consultasProvider.consultas.length,
                   itemBuilder: (context, index) {
                     final consulta = consultasProvider.consultas[index];
-                    return ListTile(
-                      title: Text('ID: ${consulta.uidConsulta}'),
-                      subtitle: Text(
-                        'Data: ${consulta.dataHora.day.toString().padLeft(2, '0')}/'
-                        '${consulta.dataHora.month.toString().padLeft(2, '0')}/'
-                        '${consulta.dataHora.year} às '
-                        '${consulta.dataHora.hour.toString().padLeft(2, '0')}:'
-                        '${consulta.dataHora.minute.toString().padLeft(2, '0')}',
+                    return Dismissible(
+                      key: Key(consulta.uidConsulta),
+                      direction: DismissDirection.endToStart,
+                      background: Container(
+                        color: Colors.red,
+                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: const Icon(Icons.delete, color: Colors.white),
                       ),
-                      trailing: const Icon(Icons.arrow_forward_ios),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => DetalhesScreen(consulta: consulta),
+                      confirmDismiss: (direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Cancelar Consulta'),
+                            content: const Text('Deseja realmente cancelar esta consulta?'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(false),
+                                child: const Text('Não'),
+                              ),
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(true),
+                                child: const Text('Sim'),
+                              ),
+                            ],
                           ),
                         );
                       },
+                      onDismissed: (direction) async {
+                        await Provider.of<ConsultasProvider>(context, listen: false)
+                            .cancelarConsulta(consulta.uidConsulta);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Consulta cancelada')),
+                        );
+                      },
+                      child: ListTile(
+                        title: Text('ID: ${consulta.uidConsulta}'),
+                        subtitle: Text(
+                          'Data: ${consulta.dataHora.day.toString().padLeft(2, '0')}/'
+                          '${consulta.dataHora.month.toString().padLeft(2, '0')}/'
+                          '${consulta.dataHora.year} às '
+                          '${consulta.dataHora.hour.toString().padLeft(2, '0')}:' 
+                          '${consulta.dataHora.minute.toString().padLeft(2, '0')}',
+                        ),
+                        trailing: const Icon(Icons.arrow_forward_ios),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetalhesScreen(consulta: consulta),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
         )
+
 
       ],
     ),
